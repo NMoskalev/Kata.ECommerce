@@ -14,8 +14,8 @@ namespace Kata.ECommerce.Checkout.DependencyInjection
         private static readonly Dictionary<string, Func<Discount, IDiscountType>> _discounts =
             new Dictionary<string, Func<Discount, IDiscountType>>
             {
-                { "x2", (discount) => new TwoBaseItemsDiscountType(discount)},
-                { "x3", (discount) => new ThreeBaseItemsDiscountType(discount)}
+                { "x2", (discount) => new TwoItemsDiscountType(discount)},
+                { "x3", (discount) => new ThreeItemsDiscountType(discount)}
             };
 
         public CheckoutRegistry()

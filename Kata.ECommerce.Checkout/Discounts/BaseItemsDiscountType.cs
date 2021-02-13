@@ -18,6 +18,11 @@ namespace Kata.ECommerce.Checkout.Discounts
 
         public virtual void Calculate(List<ILineItem> lineItems)
         {
+            if (lineItems == null)
+            {
+                return;
+            }
+
             var discountItems = lineItems
                 .Where(l => Discount.ProductCodes.Contains(l.ProductCode, StringComparer.OrdinalIgnoreCase)
                             && l.Total.Equals(l.SubTotal))

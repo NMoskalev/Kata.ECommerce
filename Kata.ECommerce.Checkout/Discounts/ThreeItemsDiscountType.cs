@@ -1,12 +1,14 @@
-﻿using Kata.ECommerce.Core.Checkout.Models;
+﻿using System.Runtime.CompilerServices;
+using Kata.ECommerce.Core.Checkout.Models;
 
+[assembly: InternalsVisibleTo("Kata.ECommerce.Tests")]
 namespace Kata.ECommerce.Checkout.Discounts
 {
-    internal class ThreeBaseItemsDiscountType : BaseItemsDiscountType
+    internal class ThreeItemsDiscountType : BaseItemsDiscountType
     {
         protected override int ItemCount => 3;
 
-        public ThreeBaseItemsDiscountType(Discount discount) : base(discount)
+        public ThreeItemsDiscountType(Discount discount) : base(discount)
         {
         }
     }
