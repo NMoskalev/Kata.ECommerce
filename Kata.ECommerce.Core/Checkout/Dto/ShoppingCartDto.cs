@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Kata.ECommerce.Core.Checkout.Dto;
 
-namespace Kata.ECommerce.Core.Checkout.DTO
+namespace Kata.ECommerce.Core.Checkout.Dto
 {
     public class ShoppingCartDto
     {

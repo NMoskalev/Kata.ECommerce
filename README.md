@@ -25,7 +25,3 @@ Example of usages can be found in `Program.cs` file.
 
 Discount calculation logic is in `BaseItemsDiscountType.cs`.
 
-
-#### TBD:
-
- - unit-tests

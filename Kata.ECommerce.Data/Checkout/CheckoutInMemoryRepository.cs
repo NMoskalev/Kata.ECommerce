@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Dto;
-using Kata.ECommerce.Core.Checkout.DTO;
 
 namespace Kata.ECommerce.Data.Checkout
 {

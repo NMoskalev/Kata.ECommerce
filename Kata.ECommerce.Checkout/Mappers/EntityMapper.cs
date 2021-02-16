@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Kata.ECommerce.Core.Checkout.Dto;
-using Kata.ECommerce.Core.Checkout.DTO;
 using Kata.ECommerce.Core.Checkout.Models;
 
 namespace Kata.ECommerce.Checkout.Mappers

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Kata.ECommerce.Core.Checkout.DTO;
+using Kata.ECommerce.Core.Checkout.Dto;
 
 namespace Kata.ECommerce.Core.Checkout
 {

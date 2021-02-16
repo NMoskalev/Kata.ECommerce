@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
-using Kata.ECommerce.Core.Checkout.DTO;
+using Kata.ECommerce.Core.Checkout.Dto;
 using Kata.ECommerce.Core.Checkout.Models;
 
+[assembly: InternalsVisibleTo("Kata.ECommerce.Tests")]
 namespace Kata.ECommerce.Checkout.Services
 {
     internal class CheckoutService : ICheckout

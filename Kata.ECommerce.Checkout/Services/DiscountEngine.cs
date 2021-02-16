@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Models;
 
+[assembly: InternalsVisibleTo("Kata.ECommerce.Tests")]
 namespace Kata.ECommerce.Checkout.Services
 {
-    public class DiscountEngine : IDiscountEngine
+    internal class DiscountEngine : IDiscountEngine
     {
         private readonly IDiscountRepository _repository;
         private readonly IMapper _mapper;
