@@ -16,6 +16,7 @@ namespace Kata.ECommerce.Checkout.Discounts
             Discount = discount;
         }
 
+        //Todo: provide code with comments.
         public virtual void Calculate(List<ILineItem> lineItems)
         {
             if (lineItems == null)
@@ -32,6 +33,7 @@ namespace Kata.ECommerce.Checkout.Discounts
             {
                 var totalAppliedItems = discountItems.Count;
                 var sums = GetRoundSums();
+                //Todo: does while(totalAppliedItems >= ItemCount) mean the same?
                 while (totalAppliedItems / ItemCount > 0)
                 {
                     for (var i = 1; i <= ItemCount; i++)
