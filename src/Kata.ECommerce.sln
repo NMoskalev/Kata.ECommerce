@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.ECommerce.Checkout", "Kata.ECommerce.Checkout\Kata.ECommerce.Checkout.csproj", "{ABB9FB49-6550-4153-A08B-4757E6842E59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kata.ECommerce.Checkout", "Kata.ECommerce.Checkout\Kata.ECommerce.Checkout.csproj", "{ABB9FB49-6550-4153-A08B-4757E6842E59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.ECommerce.Core", "Kata.ECommerce.Core\Kata.ECommerce.Core.csproj", "{67CDC240-5001-4583-9930-7A946DD2840A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kata.ECommerce.Core", "Kata.ECommerce.Core\Kata.ECommerce.Core.csproj", "{67CDC240-5001-4583-9930-7A946DD2840A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.ECommerce", "Kata.ECommerce\Kata.ECommerce.csproj", "{CFE00B93-B8B9-4D7E-BAA8-FBC687F09C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kata.ECommerce.Console", "Kata.ECommerce.Console\Kata.ECommerce.Console.csproj", "{CFE00B93-B8B9-4D7E-BAA8-FBC687F09C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.ECommerce.Tests", "Kata.ECommerce.Tests\Kata.ECommerce.Tests.csproj", "{4E4FEF0A-CBA1-4961-BF2E-491B087D2056}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kata.ECommerce.Tests", "Kata.ECommerce.Tests\Kata.ECommerce.Tests.csproj", "{4E4FEF0A-CBA1-4961-BF2E-491B087D2056}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kata.ECommerce.Data", "Kata.ECommerce.Data\Kata.ECommerce.Data.csproj", "{52C2241A-869A-4BF9-A7CA-CBF734DF737E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kata.ECommerce.DataAccess", "Kata.ECommerce.DataAccess\Kata.ECommerce.DataAccess.csproj", "{52C2241A-869A-4BF9-A7CA-CBF734DF737E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

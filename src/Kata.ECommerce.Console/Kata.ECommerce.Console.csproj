@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Kata.ECommerce.Checkout\Kata.ECommerce.Checkout.csproj" />
     <ProjectReference Include="..\Kata.ECommerce.Core\Kata.ECommerce.Core.csproj" />
-    <ProjectReference Include="..\Kata.ECommerce.Data\Kata.ECommerce.Data.csproj" />
+    <ProjectReference Include="..\Kata.ECommerce.DataAccess\Kata.ECommerce.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
