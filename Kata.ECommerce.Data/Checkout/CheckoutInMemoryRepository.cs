@@ -8,6 +8,7 @@ namespace Kata.ECommerce.Data.Checkout
 {
     internal class CheckoutInMemoryRepository : ICheckoutRepository
     {
+        //Todo: review question - why do we need a lock here?
         private readonly object _cartLock = new object();
         private static ShoppingCartDto _cart;
 
