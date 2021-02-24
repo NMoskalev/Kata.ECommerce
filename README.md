@@ -2,7 +2,7 @@
 
 #### Prerequisites:
 
-- .NET Core 3.1
+- [![](https://img.shields.io/badge/net%20core-3.1-blue?logo=visual-studio)](https://dotnet.microsoft.com/download)
 
 #### Requirements:
 
