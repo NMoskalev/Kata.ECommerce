@@ -13,5 +13,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Kata.ECommerce.Core\Kata.ECommerce.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>Kata.ECommerce.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
 </Project>

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Models;
 
-//Todo: move it to the project file level (https://www.meziantou.net/declaring-internalsvisibleto-in-the-csproj.htm)
-[assembly: InternalsVisibleTo("Kata.ECommerce.Tests")]
 namespace Kata.ECommerce.Checkout.Services
 {
     internal class DiscountEngine : IDiscountEngine
