@@ -6,6 +6,7 @@ using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Dto;
 using Kata.ECommerce.Core.Checkout.Models;
 
+//Todo: move it to the project file level (https://www.meziantou.net/declaring-internalsvisibleto-in-the-csproj.htm)
 [assembly: InternalsVisibleTo("Kata.ECommerce.Tests")]
 namespace Kata.ECommerce.Checkout.Services
 {
@@ -57,10 +58,12 @@ namespace Kata.ECommerce.Checkout.Services
 
         private ShoppingCart GetCart()
         {
+            //Todo: Do not mix sync and async calls
             var cartDto = _repository.GetShoppingCart().Result;
             return _mapper.Map<ShoppingCart>(cartDto);
         }
 
+        //Todo: the method should be removed. GetTotal method should make all calculations based on the current line items.
         private void RecalculateTotal(ShoppingCart cart)
         {
             _discountEngine.Apply(cart);
