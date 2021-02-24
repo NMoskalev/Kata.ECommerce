@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Kata.ECommerce.Checkout.Mappers;
 using Kata.ECommerce.Checkout.Services;
@@ -15,7 +16,7 @@ namespace Kata.ECommerce.Tests.Checkout
     public class DiscountEngineTests
     {
         [Fact(DisplayName = "Apply discounts")]
-        public void ApplyTest()
+        public async Task ApplyTest()
         {
             var lineItems = new List<ILineItem>
             {
@@ -39,13 +40,13 @@ namespace Kata.ECommerce.Tests.Checkout
              });
 
             var repositoryMock = new Mock<IDiscountRepository>(MockBehavior.Strict);
-            repositoryMock.Setup(r => r.GetDiscounts()).Returns(discounts);
+            repositoryMock.Setup(r => r.GetDiscounts()).ReturnsAsync(discounts);
 
             var discountType = new Mock<IDiscountType>(MockBehavior.Strict);
             discountType.Setup(d => d.Calculate(It.Is<List<ILineItem>>(l => calculateValidation(l))));
 
             var engine = GetEngine(repositoryMock, (type) => { return discount => discountType.Object; });
-            engine.Apply(cart);
+            await engine.Apply(cart);
         }
 
         [Fact(DisplayName = "Clean up discounts")]

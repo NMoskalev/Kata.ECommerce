@@ -1,13 +1,14 @@
-﻿using Kata.ECommerce.Core.Checkout.Models;
+﻿using System.Threading.Tasks;
+using Kata.ECommerce.Core.Checkout.Models;
 
 namespace Kata.ECommerce.Core.Checkout
 {
     public interface ICheckout
     {
-        void Scan(Item item);
+        Task Scan(Item item);
 
-        double Total();
+        Task<double> Total();
 
-        void Remove(Item item);
+        Task Remove(Item item);
     }
 }

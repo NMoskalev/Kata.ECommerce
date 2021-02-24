@@ -5,11 +5,11 @@ using Kata.ECommerce.Checkout.Discounts;
 using Kata.ECommerce.Checkout.Services;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Models;
-using StructureMap;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Kata.ECommerce.Checkout.DependencyInjection
 {
-    public class CheckoutRegistry : Registry
+    public class CheckoutConfiguration
     {
         private static readonly Dictionary<string, Func<Discount, IDiscountType>> _discounts =
             new Dictionary<string, Func<Discount, IDiscountType>>
@@ -18,12 +18,12 @@ namespace Kata.ECommerce.Checkout.DependencyInjection
                 { "x3", (discount) => new ThreeItemsDiscountType(discount)}
             };
 
-        public CheckoutRegistry()
+        public static void Configure(ServiceCollection collection)
         {
-            For<ICheckout>().Use<CheckoutService>();
-            For<IDiscountEngine>().Use(s => new DiscountEngine(
-                s.GetInstance<IDiscountRepository>(),
-                s.GetInstance<IMapper>(),
+            collection.AddTransient<ICheckout, CheckoutService>();
+            collection.AddScoped<IDiscountEngine>(s => new DiscountEngine(
+                s.GetService<IDiscountRepository>(),
+                s.GetService<IMapper>(),
                 GetDiscountType));
         }
 

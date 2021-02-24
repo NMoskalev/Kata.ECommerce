@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Kata.ECommerce.Checkout.Mappers;
 using Kata.ECommerce.Checkout.Services;
@@ -18,11 +19,11 @@ namespace Kata.ECommerce.Tests.Checkout
         public void ScanNullTest()
         {
             var service = GetService(new Mock<ICheckoutRepository>(), new Mock<IDiscountEngine>());
-            Assert.Throws<ArgumentNullException>(() => service.Scan(null));
+            Assert.ThrowsAsync<ArgumentNullException>(() => service.Scan(null));
         }
 
         [Fact(DisplayName = "Scan Item")]
-        public void ScanItemTest()
+        public async Task ScanItemTest()
         {
             var initialShoppingCart = new ShoppingCartDto {LineItems = new List<LineItemDto>()};
             var item = new Item { ProductCode = "Item1", Price = 1.33333 };
@@ -45,21 +46,21 @@ namespace Kata.ECommerce.Tests.Checkout
                 .ReturnsAsync(It.IsAny<ShoppingCartDto>());
 
             var engineMock = new Mock<IDiscountEngine>(MockBehavior.Strict);
-            engineMock.Setup(e => e.Apply(It.Is<ShoppingCart>(c => applyDiscountValidation(c))));
+            engineMock.Setup(e => e.Apply(It.Is<ShoppingCart>(c => applyDiscountValidation(c)))).Returns(Task.CompletedTask);
 
             var service = GetService(checkoutRepositoryMock, engineMock);
-            service.Scan(item);
+            await service.Scan(item);
         }
 
         [Fact(DisplayName = "Remove null Item")]
         public void RemoveNullTest()
         {
             var service = GetService(new Mock<ICheckoutRepository>(), new Mock<IDiscountEngine>());
-            Assert.Throws<ArgumentNullException>(() => service.Remove(null));
+            Assert.ThrowsAsync<ArgumentNullException>(() => service.Remove(null));
         }
 
         [Fact(DisplayName = "Scan Item")]
-        public void RemoveItemTest()
+        public async Task RemoveItemTest()
         {
             var item = new Item { ProductCode = "Item1", Price = 1.33333 };
             var initialShoppingCart = new ShoppingCartDto
@@ -84,15 +85,15 @@ namespace Kata.ECommerce.Tests.Checkout
                 .ReturnsAsync(It.IsAny<ShoppingCartDto>());
 
             var engineMock = new Mock<IDiscountEngine>(MockBehavior.Strict);
-            engineMock.Setup(e => e.CleanUp(It.Is<ShoppingCart>(c => cleanUpDiscountValidation(c))));
-            engineMock.Setup(e => e.Apply(It.Is<ShoppingCart>(c => cleanUpDiscountValidation(c))));
+            engineMock.Setup(e => e.CleanUp(It.Is<ShoppingCart>(c => cleanUpDiscountValidation(c)))).Returns(Task.CompletedTask);
+            engineMock.Setup(e => e.Apply(It.Is<ShoppingCart>(c => cleanUpDiscountValidation(c)))).Returns(Task.CompletedTask);
 
             var service = GetService(checkoutRepositoryMock, engineMock);
-            service.Remove(item);
+            await service.Remove(item);
         }
 
         [Fact(DisplayName="Get total")]
-        public void GetTotalTest()
+        public async Task GetTotalTest()
         {
             var total = 1.23;
             var initialShoppingCart = new ShoppingCartDto
@@ -106,7 +107,7 @@ namespace Kata.ECommerce.Tests.Checkout
             var engineMock = new Mock<IDiscountEngine>(MockBehavior.Strict);
 
             var service = GetService(checkoutRepositoryMock, engineMock);
-            Assert.Equal(total, service.Total());
+            Assert.Equal(total, await service.Total());
         }
 
         private CheckoutService GetService(

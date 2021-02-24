@@ -1,8 +1,9 @@
-﻿using Kata.ECommerce.Core.Checkout;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Dto;
-using System.Collections.Generic;
 
-namespace Kata.ECommerce.Data.Checkout
+namespace Kata.ECommerce.DataAccess.Checkout
 {
     internal class DiscountInMemoryRepository : IDiscountRepository
     {
@@ -12,9 +13,9 @@ namespace Kata.ECommerce.Data.Checkout
             new DiscountDto{ Name ="Oranges discount", Type = "x3", ProductCodes = new List<string>{"Oranges"}, TotalPrice = 0.90}
         };
 
-        public IReadOnlyList<DiscountDto> GetDiscounts()
+        public Task<List<DiscountDto>> GetDiscounts()
         {
-            return _discounts;
+            return Task.FromResult(_discounts);
         }
     }
 }

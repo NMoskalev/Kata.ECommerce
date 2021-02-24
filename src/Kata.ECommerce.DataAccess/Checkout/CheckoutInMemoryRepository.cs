@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Dto;
 
-namespace Kata.ECommerce.Data.Checkout
+namespace Kata.ECommerce.DataAccess.Checkout
 {
     internal class CheckoutInMemoryRepository : ICheckoutRepository
     {

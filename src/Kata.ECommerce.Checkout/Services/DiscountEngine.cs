@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Models;
@@ -21,9 +22,9 @@ namespace Kata.ECommerce.Checkout.Services
             _types = types;
         }
 
-        public void Apply(ShoppingCart cart)
+        public async Task Apply(ShoppingCart cart)
         {
-            var discounts = _repository.GetDiscounts();
+            var discounts = await _repository.GetDiscounts();
             foreach (var discountDto in discounts)
             {
                 var discount = _mapper.Map<Discount>(discountDto);
@@ -32,12 +33,14 @@ namespace Kata.ECommerce.Checkout.Services
             }
         }
 
-        public void CleanUp(ShoppingCart cart)
+        public Task CleanUp(ShoppingCart cart)
         {
             foreach (var cartLineItem in cart.LineItems)
             {
                 cartLineItem.Total = cartLineItem.SubTotal = cartLineItem.Price;
             }
+
+            return Task.CompletedTask;
         }
     }
 }

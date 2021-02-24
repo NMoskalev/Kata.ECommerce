@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
 using Kata.ECommerce.Core.Checkout.Dto;
@@ -23,51 +24,57 @@ namespace Kata.ECommerce.Checkout.Services
             _mapper = mapper;
         }
 
-        public void Scan(Item item)
+        public async Task Scan(Item item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var cart = GetCart();
+            var cart = await GetCart();
             AddLineItem(cart, item);
-            RecalculateTotal(cart);
+            await RecalculateTotal(cart);
         }
 
-        public double Total()
+        public async Task<double> Total()
         {
-            return GetCart().Total;
+            return (await GetCart()).Total;
         }
 
-        public void Remove(Item item)
+        public async Task Remove(Item item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            var cart = GetCart();
+            var cart = await GetCart();
             RemoveLineItem(cart, item);
-            _discountEngine.CleanUp(cart);
-            RecalculateTotal(cart);
+            await _discountEngine.CleanUp(cart);
+            await RecalculateTotal(cart);
         }
 
-        private ShoppingCart GetCart()
+        private async Task<ShoppingCart> GetCart()
         {
-            //Todo: Do not mix sync and async calls
-            var cartDto = _repository.GetShoppingCart().Result;
+            var cartDto = await _repository.GetShoppingCart();
             return _mapper.Map<ShoppingCart>(cartDto);
         }
 
-        //Todo: the method should be removed. GetTotal method should make all calculations based on the current line items.
-        private void RecalculateTotal(ShoppingCart cart)
+        private async Task RecalculateTotal(ShoppingCart cart)
         {
-            _discountEngine.Apply(cart);
-            ApplyChanges(cart);
+            await _discountEngine.Apply(cart);
+            await ApplyChanges(cart);
         }
 
-        private void AddLineItem(ShoppingCart cart, Item item)
+        private async Task ApplyChanges(ShoppingCart cart)
+        {
+            cart.Total = Math.Round(cart.LineItems.Sum(l => l.Total), 2, MidpointRounding.ToPositiveInfinity);
+            cart.SubTotal = Math.Round(cart.LineItems.Sum(l => l.SubTotal), 2, MidpointRounding.ToPositiveInfinity);
+
+            await _repository.SaveShoppingCart(_mapper.Map<ShoppingCartDto>(cart));
+        }
+
+        private static void AddLineItem(ShoppingCart cart, Item item)
         {
             cart.LineItems.Add(new StandardLineItem
             {
@@ -78,20 +85,12 @@ namespace Kata.ECommerce.Checkout.Services
             });
         }
 
-        private void RemoveLineItem(ShoppingCart cart, Item item)
+        private static void RemoveLineItem(ShoppingCart cart, Item item)
         {
             var lineItem = cart.LineItems.First(l =>
                 l.ProductCode.Equals(item.ProductCode, StringComparison.OrdinalIgnoreCase));
 
             cart.LineItems.Remove(lineItem);
-        }
-
-        private void ApplyChanges(ShoppingCart cart)
-        {
-            cart.Total = Math.Round(cart.LineItems.Sum(l => l.Total), 2,MidpointRounding.ToPositiveInfinity);
-            cart.SubTotal = Math.Round(cart.LineItems.Sum(l => l.SubTotal), 2, MidpointRounding.ToPositiveInfinity);
-
-            _repository.SaveShoppingCart(_mapper.Map<ShoppingCartDto>(cart));
         }
     }
 }
