@@ -6,7 +6,7 @@ using AutoMapper;
 using Kata.ECommerce.Checkout.Mappers;
 using Kata.ECommerce.Checkout.Services;
 using Kata.ECommerce.Core.Checkout;
-using Kata.ECommerce.Core.Checkout.Dto;
+using Kata.ECommerce.Core.Checkout.Entities;
 using Kata.ECommerce.Core.Checkout.Models;
 using Moq;
 using Xunit;
@@ -29,9 +29,9 @@ namespace Kata.ECommerce.Tests.Checkout
                 LineItems = new List<ILineItem>(lineItems)
             };
 
-            var discounts = new List<DiscountDto>
+            var discounts = new List<DiscountEntity>
             {
-                new DiscountDto {Name = "discount1", Type = "discount1"}
+                new DiscountEntity {Name = "discount1", Type = "discount1"}
             };
 
             var calculateValidation = new Func<List<ILineItem>, bool>((items) =>
@@ -42,7 +42,7 @@ namespace Kata.ECommerce.Tests.Checkout
             var repositoryMock = new Mock<IDiscountRepository>(MockBehavior.Strict);
             repositoryMock.Setup(r => r.GetDiscounts()).ReturnsAsync(discounts);
 
-            var discountType = new Mock<IDiscountType>(MockBehavior.Strict);
+            var discountType = new Mock<ICalculate>(MockBehavior.Strict);
             discountType.Setup(d => d.Calculate(It.Is<List<ILineItem>>(l => calculateValidation(l))));
 
             var engine = GetEngine(repositoryMock, (type) => { return discount => discountType.Object; });
@@ -71,7 +71,7 @@ namespace Kata.ECommerce.Tests.Checkout
             Assert.Equal(lineItems[1].Price, cart.LineItems[1].Total);
         }
 
-        private DiscountEngine GetEngine(IMock<IDiscountRepository> repositoryMock, Func<string, Func<Discount, IDiscountType>> types)
+        private DiscountEngine GetEngine(IMock<IDiscountRepository> repositoryMock, Func<string, Func<Discount, ICalculate>> types)
         {
             var profile = new EntityMapper();
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));

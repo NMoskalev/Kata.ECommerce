@@ -1,14 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Kata.ECommerce.Core.Checkout.Dto;
+using Kata.ECommerce.Core.Checkout.Entities;
 
 namespace Kata.ECommerce.Core.Checkout
 {
-    //Todo: A repository should not return a DTO. It may return a domain model or entity or result object.
     public interface ICheckoutRepository
     {
-        //Todo: GetShoppingCart(string cartId); or GetShoppingCart(string customerId);
-        Task<ShoppingCartDto> GetShoppingCart();
+        Task<ShoppingCartEntity> GetShoppingCart();
 
-        Task<ShoppingCartDto> SaveShoppingCart(ShoppingCartDto cart);
+        Task<ShoppingCartEntity> SaveShoppingCart(ShoppingCartEntity cart);
     }
 }

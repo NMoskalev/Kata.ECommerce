@@ -3,8 +3,7 @@ using Kata.ECommerce.Core.Checkout.Models;
 
 namespace Kata.ECommerce.Core.Checkout
 {
-    //Todo: rename it to ICalculate
-    public interface IDiscountType
+    public interface ICalculate
     {
         void Calculate(List<ILineItem> lineItems);
     }

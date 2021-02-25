@@ -11,8 +11,8 @@ namespace Kata.ECommerce.Checkout.DependencyInjection
 {
     public class CheckoutConfiguration
     {
-        private static readonly Dictionary<string, Func<Discount, IDiscountType>> _discounts =
-            new Dictionary<string, Func<Discount, IDiscountType>>
+        private static readonly Dictionary<string, Func<Discount, ICalculate>> _discounts =
+            new Dictionary<string, Func<Discount, ICalculate>>
             {
                 { "x2", (discount) => new TwoItemsDiscountType(discount)},
                 { "x3", (discount) => new ThreeItemsDiscountType(discount)}
@@ -27,7 +27,7 @@ namespace Kata.ECommerce.Checkout.DependencyInjection
                 GetDiscountType));
         }
 
-        private static Func<Discount, IDiscountType> GetDiscountType(string type)
+        private static Func<Discount, ICalculate> GetDiscountType(string type)
         {
             return _discounts[type];
         }

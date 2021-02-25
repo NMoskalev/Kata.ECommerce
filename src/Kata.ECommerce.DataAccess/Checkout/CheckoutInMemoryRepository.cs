@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kata.ECommerce.Core.Checkout;
-using Kata.ECommerce.Core.Checkout.Dto;
+using Kata.ECommerce.Core.Checkout.Entities;
 
 namespace Kata.ECommerce.DataAccess.Checkout
 {
     internal class CheckoutInMemoryRepository : ICheckoutRepository
     {
-        //Todo: review question - why do we need a lock here?
         private readonly object _cartLock = new object();
-        private static ShoppingCartDto _cart;
+        private static ShoppingCartEntity _cart;
 
-        public Task<ShoppingCartDto> GetShoppingCart()
+        public Task<ShoppingCartEntity> GetShoppingCart()
         {
             if (_cart == null)
             {
                 lock (_cartLock)
                 {
-                    _cart = new ShoppingCartDto() {LineItems = new List<LineItemDto>()};
+                    _cart = new ShoppingCartEntity() {LineItems = new List<LineItemEntity>()};
                     return Task.FromResult(_cart);
                 }
             }
@@ -26,7 +25,7 @@ namespace Kata.ECommerce.DataAccess.Checkout
             return Task.FromResult(_cart);
         }
 
-        public Task<ShoppingCartDto> SaveShoppingCart(ShoppingCartDto cart)
+        public Task<ShoppingCartEntity> SaveShoppingCart(ShoppingCartEntity cart)
         {
             if (cart == null)
             {

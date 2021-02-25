@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Kata.ECommerce.Core.Checkout.Dto
+namespace Kata.ECommerce.Core.Checkout.Entities
 {
-    public class DiscountDto
+    public class DiscountEntity
     {
         public string Name { get; set; }
 

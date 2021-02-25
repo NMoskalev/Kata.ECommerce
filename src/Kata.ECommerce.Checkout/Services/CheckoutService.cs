@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Kata.ECommerce.Core.Checkout;
-using Kata.ECommerce.Core.Checkout.Dto;
+using Kata.ECommerce.Core.Checkout.Entities;
 using Kata.ECommerce.Core.Checkout.Models;
 
 namespace Kata.ECommerce.Checkout.Services
@@ -71,7 +71,7 @@ namespace Kata.ECommerce.Checkout.Services
             cart.Total = Math.Round(cart.LineItems.Sum(l => l.Total), 2, MidpointRounding.ToPositiveInfinity);
             cart.SubTotal = Math.Round(cart.LineItems.Sum(l => l.SubTotal), 2, MidpointRounding.ToPositiveInfinity);
 
-            await _repository.SaveShoppingCart(_mapper.Map<ShoppingCartDto>(cart));
+            await _repository.SaveShoppingCart(_mapper.Map<ShoppingCartEntity>(cart));
         }
 
         private static void AddLineItem(ShoppingCart cart, Item item)

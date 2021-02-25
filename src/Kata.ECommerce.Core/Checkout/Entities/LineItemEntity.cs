@@ -1,6 +1,6 @@
-﻿namespace Kata.ECommerce.Core.Checkout.Dto
+﻿namespace Kata.ECommerce.Core.Checkout.Entities
 {
-    public class LineItemDto
+    public class LineItemEntity
     {
         public string ProductCode { get; set; }
 

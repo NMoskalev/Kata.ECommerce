@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Kata.ECommerce.Core.Checkout.Dto;
+using Kata.ECommerce.Core.Checkout.Entities;
 using Kata.ECommerce.Core.Checkout.Models;
 
 namespace Kata.ECommerce.Checkout.Mappers
@@ -8,16 +8,16 @@ namespace Kata.ECommerce.Checkout.Mappers
     {
         public EntityMapper()
         {
-            CreateMap<LineItemDto, ILineItem>().ConstructUsing(c => new StandardLineItem
+            CreateMap<LineItemEntity, ILineItem>().ConstructUsing(c => new StandardLineItem
             {
                 ProductCode = c.ProductCode,
                 Price = c.Price,
                 Total = c.Total,
                 SubTotal = c.SubTotal
             });
-            CreateMap<ILineItem, LineItemDto>();
-            CreateMap<ShoppingCart, ShoppingCartDto>().ReverseMap();
-            CreateMap<Discount, DiscountDto>().ReverseMap();
+            CreateMap<ILineItem, LineItemEntity>();
+            CreateMap<ShoppingCart, ShoppingCartEntity>().ReverseMap();
+            CreateMap<Discount, DiscountEntity>().ReverseMap();
         }
     }
 }

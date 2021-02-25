@@ -10,12 +10,12 @@ namespace Kata.ECommerce.Checkout.Services
     {
         private readonly IDiscountRepository _repository;
         private readonly IMapper _mapper;
-        private readonly Func<string, Func<Discount, IDiscountType>> _types;
+        private readonly Func<string, Func<Discount, ICalculate>> _types;
 
         public DiscountEngine(
             IDiscountRepository repository, 
             IMapper mapper, 
-            Func<string, Func<Discount, IDiscountType>> types)
+            Func<string, Func<Discount, ICalculate>> types)
         {
             _repository = repository;
             _mapper = mapper;
@@ -25,11 +25,12 @@ namespace Kata.ECommerce.Checkout.Services
         public async Task Apply(ShoppingCart cart)
         {
             var discounts = await _repository.GetDiscounts();
-            foreach (var discountDto in discounts)
+            foreach (var discountEntity in discounts)
             {
-                var discount = _mapper.Map<Discount>(discountDto);
-                //Todo: unreadable code.
-                _types(discount.Type)(discount).Calculate(cart.LineItems);
+                var discount = _mapper.Map<Discount>(discountEntity);
+                var discountTypeSelector = _types(discount.Type);
+                var discountCalculation = discountTypeSelector(discount);
+                discountCalculation.Calculate(cart.LineItems);
             }
         }
 
